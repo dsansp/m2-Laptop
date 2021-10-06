@@ -42,6 +42,15 @@ import java.util.List;
 
             List<Laptop> laptops = repository.findAll();
 
+            //actualizar un laptop
+
+            asus.setPrice(2000.50);
+            repository.save(asus);
+
+            //borrar un laptop
+
+            repository.delete(asus);
+
 showcount();
         }
 
