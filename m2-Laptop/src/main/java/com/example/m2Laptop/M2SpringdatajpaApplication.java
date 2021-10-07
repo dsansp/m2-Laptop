@@ -35,6 +35,8 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
             System.out.println("0 - Salir  ");
             System.out.println(" 1 - Ver todos los equipos: ");
             System.out.println(" 2 - Ver un Ordenador por ID: ");
+            System.out.println(" 3 - Crear un nuevo Ordenador: ");
+            System.out.println(" 4 - Modificar un Ordenador por ID: ");
 
 
             int opcion = Scanner.nextInt();
@@ -58,18 +60,64 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
                 //buscar elemento
                 System.out.println(" Por favor introduzca el ID que desea ver: ");
                 long idIn = Scanner.nextLong();
+                Scanner.nextLine();
                 repository.findById(idIn);
 
-               //Optional evita devolver nulos
-               Optional<Laptop> laptopOptional = repository.findById(idIn);
+                //Optional evita devolver nulos
+                Optional<Laptop> laptopOptional = repository.findById(idIn);
                 if (laptopOptional.isPresent()) {
-                    Laptop ordenador= laptopOptional.get();
-                    System.out.println(ordenador);}
-                else{
-                        System.out.println(" no existe el ordenador solicitado");}
+                    Laptop ordenador = laptopOptional.get();
+                    System.out.println(ordenador);
+                } else {
+                    System.out.println(" no existe el ordenador solicitado");
+                }
+            }else if (opcion == 3) {
+                //crear un nuevo ordenador
+                System.out.println( "introduzca el nombre del fabricante: ");
+                String manufacturer =Scanner.next();
+                System.out.println(" ha introducido el fabricante: " +manufacturer);
 
+                System.out.println( "introduzca la cantidad de memoria Ram: ");
+                Integer ram =Scanner.nextInt();
+                Scanner.nextLine();
+                System.out.println(" ha introducido " +ram +" de Ram: " );
+                System.out.println( "introduzca el precio del equipo: ");
+                Double price =Scanner.nextDouble();
+                Scanner.nextLine();
+                System.out.println(" ha introducido el precio: " +price);
+                Laptop nuevo = new Laptop(null, manufacturer, ram, price);
+                repository.save(nuevo);
+                System.out.println("Ordenador creado correctamente");
 
+            }else if (opcion == 4) {
+                //buscar elemento
+                System.out.println(" Por favor introduzca el ID que desea ver: ");
+                long idIn = Scanner.nextLong();
+                Scanner.nextLine();
+                repository.findById(idIn);
 
+                Optional<Laptop> laptopOptional = repository.findById(idIn);
+                if (laptopOptional.isEmpty()) {
+                    System.out.println(" no existe el ordenador solicitado");
+
+                } else {Laptop ordenador = laptopOptional.get();
+                    System.out.println( "introduzca el nombre del fabricante: (Actual "+ ordenador.getFabricate()+ ") ");
+                    String manufacturer =Scanner.next();
+                    System.out.println(" ha introducido el fabricante: " +manufacturer);
+                    ordenador.setFabricate(manufacturer);
+                    System.out.println( "introduzca la cantidad de memoria Ram: (Actual " + ordenador.getRam()+ ") ");
+                    Integer ram =Scanner.nextInt();
+                    Scanner.nextLine();
+                    System.out.println(" ha introducido " +ram +" de Ram: " );
+                    ordenador.setRam(ram);
+                    System.out.println( "introduzca el precio del equipo: (Actual "+ ordenador.getPrice()+") ");
+                    Double price =Scanner.nextDouble();
+                    Scanner.nextLine();
+                    System.out.println(" ha introducido el precio: " +price);
+                    ordenador.setPrice(price);
+                    repository.save(ordenador);
+                    System.out.println("Ordenador actualizado correctamente!");
+                }
 
                 } else {
 
