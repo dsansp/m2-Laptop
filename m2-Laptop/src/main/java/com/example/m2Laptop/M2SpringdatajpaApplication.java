@@ -36,10 +36,9 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
             System.out.println(" 1 - Ver todos los equipos: ");
             System.out.println(" 2 - Ver un Ordenador por ID: ");
             System.out.println(" 3 - Crear un nuevo Ordenador: ");
-<<<<<<<<< Temporary merge branch 1
-=========
+
             System.out.println(" 4 - Modificar un Ordenador por ID: ");
->>>>>>>>> Temporary merge branch 2
+
 
 
             int opcion = Scanner.nextInt();
@@ -77,14 +76,10 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
             }else if (opcion == 3) {
                 //crear un nuevo ordenador
                 System.out.println( "introduzca el nombre del fabricante: ");
-<<<<<<<<< Temporary merge branch 1
                 String manufacturer =Scanner.nextLine();
                 System.out.println(" ha introducido el fabricante: " +manufacturer);
-=========
-                String manufacturer =Scanner.next();
-                System.out.println(" ha introducido el fabricante: " +manufacturer);
 
->>>>>>>>> Temporary merge branch 2
+
                 System.out.println( "introduzca la cantidad de memoria Ram: ");
                 Integer ram =Scanner.nextInt();
                 Scanner.nextLine();
@@ -96,8 +91,6 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
                 Laptop nuevo = new Laptop(null, manufacturer, ram, price);
                 repository.save(nuevo);
                 System.out.println("Ordenador creado correctamente");
-<<<<<<<<< Temporary merge branch 1
-=========
 
             }else if (opcion == 4) {
                 //buscar elemento
@@ -128,7 +121,7 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
                     repository.save(ordenador);
                     System.out.println("Ordenador actualizado correctamente!");
                 }
->>>>>>>>> Temporary merge branch 2
+
 
                 } else {
 
