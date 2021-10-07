@@ -37,7 +37,8 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
             System.out.println(" 2 - Ver un Ordenador por ID: ");
             System.out.println(" 3 - Crear un nuevo Ordenador: ");
             System.out.println(" 4 - Modificar un Ordenador por ID: ");
-
+            System.out.println(" 5 - Borrar un Ordenador por ID: ");
+            System.out.println(" 6 - Borrar todos los registros: ");
 
             int opcion = Scanner.nextInt();
 
@@ -118,29 +119,47 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
                     repository.save(ordenador);
                     System.out.println("Ordenador actualizado correctamente!");
                 }
-
+            }else if (opcion == 5) {
+                System.out.println(" Por favor introduzca el ID que desea borrar: ");
+                Long idIn=Scanner.nextLong();
+                Boolean exist= repository.existsById(idIn);
+                if (exist) {
+                    repository.deleteById(idIn);
+                    System.out.println("Ordenador borrado!");
+                }else{
+                    System.out.println("No existe el ordenador solicitado!");
+                }
+            }else if (opcion == 6) {
+                System.out.println("Esta a punto de borrar todos los datos, esta segur@");
+                Boolean confirm=Scanner.nextBoolean();
+                Scanner.nextLine();
+                if (!confirm)
+                    continue;
+                repository.deleteAll();
+                System.out.println("Ordenadores borrados correctamente");
                 } else {
+                System.out.println("la opcion escpgida no es valida");
 
-                    Laptop acer = new Laptop(null, "Acer", 32, 1599.99);
-                    Laptop asus = new Laptop(null, "Asus", 16, 799.99);
+ //                   Laptop acer = new Laptop(null, "Acer", 32, 1599.99);
+//                   Laptop asus = new Laptop(null, "Asus", 16, 799.99);
                     //operaciones Crud
 
                     //guardar
-                    repository.save(acer);
-                    repository.save(asus);
+ //                   repository.save(acer);
+ //                   repository.save(asus);
 
                     //obterner todos los datos
 
-                    List<Laptop> laptops = repository.findAll();
+  //                  List<Laptop> laptops = repository.findAll();
 
                     //actualizar un laptop
 
-                    asus.setPrice(2000.50);
-                    repository.save(asus);
+  //                  asus.setPrice(2000.50);
+  //                  repository.save(asus);
 
                     //borrar un laptop
 
-                    repository.delete(asus);
+  //                  repository.delete(asus);
 
 // showcount();
                 }
