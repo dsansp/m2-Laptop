@@ -35,6 +35,7 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
             System.out.println("0 - Salir  ");
             System.out.println(" 1 - Ver todos los equipos: ");
             System.out.println(" 2 - Ver un Ordenador por ID: ");
+            System.out.println(" 3 - Crear un nuevo Ordenador: ");
 
 
             int opcion = Scanner.nextInt();
@@ -60,16 +61,30 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
                 long idIn = Scanner.nextLong();
                 repository.findById(idIn);
 
-               //Optional evita devolver nulos
-               Optional<Laptop> laptopOptional = repository.findById(idIn);
+                //Optional evita devolver nulos
+                Optional<Laptop> laptopOptional = repository.findById(idIn);
                 if (laptopOptional.isPresent()) {
-                    Laptop ordenador= laptopOptional.get();
-                    System.out.println(ordenador);}
-                else{
-                        System.out.println(" no existe el ordenador solicitado");}
-
-
-
+                    Laptop ordenador = laptopOptional.get();
+                    System.out.println(ordenador);
+                } else {
+                    System.out.println(" no existe el ordenador solicitado");
+                }
+            }else if (opcion == 3) {
+                //crear un nuevo ordenador
+                System.out.println( "introduzca el nombre del fabricante: ");
+                String manufacturer =Scanner.nextLine();
+                System.out.println(" ha introducido el fabricante: " +manufacturer);
+                System.out.println( "introduzca la cantidad de memoria Ram: ");
+                Integer ram =Scanner.nextInt();
+                Scanner.nextLine();
+                System.out.println(" ha introducido " +ram +" de Ram: " );
+                System.out.println( "introduzca el precio del equipo: ");
+                Double price =Scanner.nextDouble();
+                Scanner.nextLine();
+                System.out.println(" ha introducido el precio: " +price);
+                Laptop nuevo = new Laptop(null, manufacturer, ram, price);
+                repository.save(nuevo);
+                System.out.println("Ordenador creado correctamente");
 
                 } else {
 
