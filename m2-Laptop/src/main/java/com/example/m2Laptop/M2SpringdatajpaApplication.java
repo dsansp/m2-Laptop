@@ -1,5 +1,5 @@
 
-    package com.example.m2Laptop;
+package com.example.m2Laptop;
 
 import org.hibernate.Session;
 
@@ -13,74 +13,78 @@ import java.util.List;
 import java.util.Scanner;
 
 
-    @SpringBootApplication
-    public class M2SpringdatajpaApplication implements CommandLineRunner {
+@SpringBootApplication
+public class M2SpringdatajpaApplication implements CommandLineRunner {
 
-        @Autowired
-        LaptopRepository repository;
+    @Autowired
+    LaptopRepository repository;
 
-        public static void main(String[] args) {
-            SpringApplication.run(M2SpringdatajpaApplication.class, args);
-
-
-        }
-
-        @Override
-        public void run(String... args) throws Exception {
-
-            Scanner Scanner = new Scanner(System.in);
-            while (true) {
-                System.out.println("Bienvenido a l a App para la gestión de Laptops");
-                System.out.println(" 1 - Ver todos los equipos: ");
-                System.out.println(" 2 - Ver un Ordenador por ID: ");
+    public static void main(String[] args) {
+        SpringApplication.run(M2SpringdatajpaApplication.class, args);
 
 
-                int opcion = Scanner.nextInt();
+    }
 
-                if (opcion == 1) {
-                    // buscar todos los ordenadores
-                    List<Laptop> ordenadores = repository.findAll();
-                    //comprobar si el repositorio esta vacio
+    @Override
+    public void run(String... args) throws Exception {
 
-                    if (ordenadores.isEmpty()) {
-                        System.out.println("No hay ordenadores disponibles");
-                    } else {
-                        System.out.println(ordenadores);
-                    }
+        Scanner Scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Bienvenido a l a App para la gestión de Laptops");
+            System.out.println("0 - Salir  ");
+            System.out.println(" 1 - Ver todos los equipos: ");
+            System.out.println(" 2 - Ver un Ordenador por ID: ");
 
-                    System.out.println(ordenadores);
-                } else if (opcion == 2) {
+
+            int opcion = Scanner.nextInt();
+
+            if (opcion == 0) {
+                System.out.println("Hasta la proxima");
+                break;
+            } else if (opcion == 1) {
+                // buscar todos los ordenadores
+                List<Laptop> ordenadores = repository.findAll();
+                //comprobar si el repositorio esta vacio
+
+                if (ordenadores.isEmpty()) {
+                    System.out.println("No hay ordenadores disponibles");
                 } else {
-
-                    Laptop acer = new Laptop(null, "Acer", 32, 1599.99);
-                    Laptop asus = new Laptop(null, "Asus", 16, 799.99);
-                    //operaciones Crud
-
-                    //guardar
-                    repository.save(acer);
-                    repository.save(asus);
-
-                    //obterner todos los datos
-
-                    List<Laptop> laptops = repository.findAll();
-
-                    //actualizar un laptop
-
-                    asus.setPrice(2000.50);
-                    repository.save(asus);
-
-                    //borrar un laptop
-
-                    repository.delete(asus);
-
-// showcount();
+                    System.out.println(ordenadores);
                 }
 
-                //   public void showcount() {
-                //           long numeroOrdenados = repository.count();
-                //       System.out.println("el numero de ordernadores es " + numeroOrdenados);
+                System.out.println(ordenadores);
+            } else if (opcion == 2) {
+            } else {
+
+                Laptop acer = new Laptop(null, "Acer", 32, 1599.99);
+                Laptop asus = new Laptop(null, "Asus", 16, 799.99);
+                //operaciones Crud
+
+                //guardar
+                repository.save(acer);
+                repository.save(asus);
+
+                //obterner todos los datos
+
+                List<Laptop> laptops = repository.findAll();
+
+                //actualizar un laptop
+
+                asus.setPrice(2000.50);
+                repository.save(asus);
+
+                //borrar un laptop
+
+                repository.delete(asus);
+
+// showcount();
             }
+
+            //   public void showcount() {
+            //           long numeroOrdenados = repository.count();
+            //       System.out.println("el numero de ordernadores es " + numeroOrdenados);
         }
     }
+}
 
 
