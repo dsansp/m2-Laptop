@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 
@@ -54,37 +55,54 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
 
                 System.out.println(ordenadores);
             } else if (opcion == 2) {
-            } else {
+                //buscar elemento
+                System.out.println(" Por favor introduzca el ID que desea ver: ");
+                long idIn = Scanner.nextLong();
+                repository.findById(idIn);
 
-                Laptop acer = new Laptop(null, "Acer", 32, 1599.99);
-                Laptop asus = new Laptop(null, "Asus", 16, 799.99);
-                //operaciones Crud
+               //Optional evita devolver nulos
+               Optional<Laptop> laptopOptional = repository.findById(idIn);
+                if (laptopOptional.isPresent()) {
+                    Laptop ordenador= laptopOptional.get();
+                    System.out.println(ordenador);}
+                else{
+                        System.out.println(" no existe el ordenador solicitado");}
 
-                //guardar
-                repository.save(acer);
-                repository.save(asus);
 
-                //obterner todos los datos
 
-                List<Laptop> laptops = repository.findAll();
 
-                //actualizar un laptop
+                } else {
 
-                asus.setPrice(2000.50);
-                repository.save(asus);
+                    Laptop acer = new Laptop(null, "Acer", 32, 1599.99);
+                    Laptop asus = new Laptop(null, "Asus", 16, 799.99);
+                    //operaciones Crud
 
-                //borrar un laptop
+                    //guardar
+                    repository.save(acer);
+                    repository.save(asus);
 
-                repository.delete(asus);
+                    //obterner todos los datos
+
+                    List<Laptop> laptops = repository.findAll();
+
+                    //actualizar un laptop
+
+                    asus.setPrice(2000.50);
+                    repository.save(asus);
+
+                    //borrar un laptop
+
+                    repository.delete(asus);
 
 // showcount();
+                }
             }
 
-            //   public void showcount() {
-            //           long numeroOrdenados = repository.count();
-            //       System.out.println("el numero de ordernadores es " + numeroOrdenados);
+                //   public void showcount() {
+                //           long numeroOrdenados = repository.count();
+                //       System.out.println("el numero de ordernadores es " + numeroOrdenados);
+            }
         }
-    }
-}
+
 
 
