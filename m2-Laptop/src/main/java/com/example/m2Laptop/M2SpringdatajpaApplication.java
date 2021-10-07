@@ -14,6 +14,8 @@ import java.util.Optional;
 import java.util.Scanner;
 
 
+
+
 @SpringBootApplication
 public class M2SpringdatajpaApplication implements CommandLineRunner {
 
@@ -29,106 +31,92 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Scanner Scanner = new Scanner(System.in);
+
         while (true) {
-            System.out.println("Bienvenido a l a App para la gestión de Laptops");
-            System.out.println("0 - Salir  ");
-            System.out.println(" 1 - Ver todos los equipos: ");
-            System.out.println(" 2 - Ver un Ordenador por ID: ");
-            System.out.println(" 3 - Crear un nuevo Ordenador: ");
-<<<<<<<<< Temporary merge branch 1
-=========
-            System.out.println(" 4 - Modificar un Ordenador por ID: ");
->>>>>>>>> Temporary merge branch 2
+            Scanner Scanner = new Scanner(System.in);
+            showmenu();
+            try {
+                int opcion = Scanner.nextInt();
 
+                if (opcion == 0) {
+                    System.out.println("Hasta la proxima");
+                    break;
+                } else if (opcion == 1) {
+                    // buscar todos los ordenadores
+                    List<Laptop> ordenadores = repository.findAll();
+                    //comprobar si el repositorio esta vacio
 
-            int opcion = Scanner.nextInt();
+                    if (ordenadores.isEmpty()) {
+                        System.out.println("No hay ordenadores disponibles");
+                    } else {
+                        System.out.println(ordenadores);
+                    }
 
-            if (opcion == 0) {
-                System.out.println("Hasta la proxima");
-                break;
-            } else if (opcion == 1) {
-                // buscar todos los ordenadores
-                List<Laptop> ordenadores = repository.findAll();
-                //comprobar si el repositorio esta vacio
-
-                if (ordenadores.isEmpty()) {
-                    System.out.println("No hay ordenadores disponibles");
-                } else {
                     System.out.println(ordenadores);
-                }
-
-                System.out.println(ordenadores);
-            } else if (opcion == 2) {
-                //buscar elemento
-                System.out.println(" Por favor introduzca el ID que desea ver: ");
-                long idIn = Scanner.nextLong();
-                Scanner.nextLine();
-                repository.findById(idIn);
-
-                //Optional evita devolver nulos
-                Optional<Laptop> laptopOptional = repository.findById(idIn);
-                if (laptopOptional.isPresent()) {
-                    Laptop ordenador = laptopOptional.get();
-                    System.out.println(ordenador);
-                } else {
-                    System.out.println(" no existe el ordenador solicitado");
-                }
-            }else if (opcion == 3) {
-                //crear un nuevo ordenador
-                System.out.println( "introduzca el nombre del fabricante: ");
-<<<<<<<<< Temporary merge branch 1
-                String manufacturer =Scanner.nextLine();
-                System.out.println(" ha introducido el fabricante: " +manufacturer);
-=========
-                String manufacturer =Scanner.next();
-                System.out.println(" ha introducido el fabricante: " +manufacturer);
-
->>>>>>>>> Temporary merge branch 2
-                System.out.println( "introduzca la cantidad de memoria Ram: ");
-                Integer ram =Scanner.nextInt();
-                Scanner.nextLine();
-                System.out.println(" ha introducido " +ram +" de Ram: " );
-                System.out.println( "introduzca el precio del equipo: ");
-                Double price =Scanner.nextDouble();
-                Scanner.nextLine();
-                System.out.println(" ha introducido el precio: " +price);
-                Laptop nuevo = new Laptop(null, manufacturer, ram, price);
-                repository.save(nuevo);
-                System.out.println("Ordenador creado correctamente");
-<<<<<<<<< Temporary merge branch 1
-=========
-
-            }else if (opcion == 4) {
-                //buscar elemento
-                System.out.println(" Por favor introduzca el ID que desea ver: ");
-                long idIn = Scanner.nextLong();
-                Scanner.nextLine();
-                repository.findById(idIn);
-
-                Optional<Laptop> laptopOptional = repository.findById(idIn);
-                if (laptopOptional.isEmpty()) {
-                    System.out.println(" no existe el ordenador solicitado");
-
-                } else {Laptop ordenador = laptopOptional.get();
-                    System.out.println( "introduzca el nombre del fabricante: (Actual "+ ordenador.getFabricate()+ ") ");
-                    String manufacturer =Scanner.next();
-                    System.out.println(" ha introducido el fabricante: " +manufacturer);
-                    ordenador.setFabricate(manufacturer);
-                    System.out.println( "introduzca la cantidad de memoria Ram: (Actual " + ordenador.getRam()+ ") ");
-                    Integer ram =Scanner.nextInt();
+                } else if (opcion == 2) {
+                    //buscar elemento
+                    System.out.println(" Por favor introduzca el ID que desea ver: ");
+                    long idIn = Scanner.nextLong();
                     Scanner.nextLine();
-                    System.out.println(" ha introducido " +ram +" de Ram: " );
-                    ordenador.setRam(ram);
-                    System.out.println( "introduzca el precio del equipo: (Actual "+ ordenador.getPrice()+") ");
-                    Double price =Scanner.nextDouble();
+                    repository.findById(idIn);
+
+                    //Optional evita devolver nulos
+                    Optional<Laptop> laptopOptional = repository.findById(idIn);
+                    if (laptopOptional.isPresent()) {
+                        Laptop ordenador = laptopOptional.get();
+                        System.out.println(ordenador);
+                    } else {
+                        System.out.println(" no existe el ordenador solicitado");
+                    }
+                } else if (opcion == 3) {
+                    //crear un nuevo ordenador
+                    System.out.println("introduzca el nombre del fabricante: ");
+                    String manufacturer = Scanner.next();
+
+                    System.out.println(" ha introducido el fabricante: " + manufacturer);
+                    System.out.println("introduzca la cantidad de memoria Ram: ");
+                    Integer ram = Scanner.nextInt();
                     Scanner.nextLine();
-                    System.out.println(" ha introducido el precio: " +price);
-                    ordenador.setPrice(price);
-                    repository.save(ordenador);
-                    System.out.println("Ordenador actualizado correctamente!");
-                }
->>>>>>>>> Temporary merge branch 2
+                    System.out.println(" ha introducido " + ram + " de Ram: ");
+                    System.out.println("introduzca el precio del equipo: ");
+                    Double price = Scanner.nextDouble();
+                    Scanner.nextLine();
+                    System.out.println(" ha introducido el precio: " + price);
+                    Laptop nuevo = new Laptop(null, manufacturer, ram, price);
+                    repository.save(nuevo);
+                    System.out.println("Ordenador creado correctamente");
+
+                } else if (opcion == 4) {
+                    //buscar elemento
+                    System.out.println(" Por favor introduzca el ID que desea ver: ");
+                    long idIn = Scanner.nextLong();
+                    Scanner.nextLine();
+                    repository.findById(idIn);
+
+                    Optional<Laptop> laptopOptional = repository.findById(idIn);
+                    if (laptopOptional.isEmpty()) {
+                        System.out.println(" no existe el ordenador solicitado");
+
+                    } else {
+                        Laptop ordenador = laptopOptional.get();
+                        System.out.println("introduzca el nombre del fabricante: (Actual " + ordenador.getFabricate() + ") ");
+                        String manufacturer = Scanner.next();
+                        System.out.println(" ha introducido el fabricante: " + manufacturer);
+                        ordenador.setFabricate(manufacturer);
+                        System.out.println("introduzca la cantidad de memoria Ram: (Actual " + ordenador.getRam() + ") ");
+                        Integer ram = Scanner.nextInt();
+                        Scanner.nextLine();
+                        System.out.println(" ha introducido " + ram + " de Ram: ");
+                        ordenador.setRam(ram);
+                        System.out.println("introduzca el precio del equipo: (Actual " + ordenador.getPrice() + ") ");
+                        Double price = Scanner.nextDouble();
+                        Scanner.nextLine();
+                        System.out.println(" ha introducido el precio: " + price);
+                        ordenador.setPrice(price);
+                        repository.save(ordenador);
+                        System.out.println("Ordenador actualizado correctamente!");
+                    }
+
 
                 } else {
 
@@ -155,13 +143,28 @@ public class M2SpringdatajpaApplication implements CommandLineRunner {
 
 // showcount();
                 }
-            }
+            } catch (Exception e) {
+                e.printStackTrace();
 
+            }
+        }
                 //   public void showcount() {
                 //           long numeroOrdenados = repository.count();
                 //       System.out.println("el numero de ordernadores es " + numeroOrdenados);
             }
-        }
+
+    public void showmenu() {
+        System.out.println("Bienvenido a l a App para la gestión de Laptops");
+        System.out.println("0 - Salir  ");
+        System.out.println(" 1 - Ver todos los equipos: ");
+        System.out.println(" 2 - Ver un Ordenador por ID: ");
+        System.out.println(" 3 - Crear un nuevo Ordenador: ");
+        System.out.println(" 4 - Modificar un Ordenador por ID: ");
+        System.out.println(" 5 - Borrar un Ordenador por ID: ");
+        System.out.println(" 6 - Borrar todos los registros: ");
+
+    }
+}
 
 
 
